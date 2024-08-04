@@ -22,29 +22,5 @@ namespace NovelArm.Properties {
                 return defaultInstance;
             }
         }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("It\'s me,")]
-        public string TestValue {
-            get {
-                return ((string)(this["TestValue"]));
-            }
-            set {
-                this["TestValue"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("128")]
-        public int TestInt {
-            get {
-                return ((int)(this["TestInt"]));
-            }
-            set {
-                this["TestInt"] = value;
-            }
-        }
     }
 }

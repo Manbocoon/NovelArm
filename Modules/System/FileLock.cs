@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace NovelArm.Modules.System
+namespace NovelArm.Modules.Systems
 {
     public class FileLock : IDisposable
     {

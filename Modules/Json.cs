@@ -9,7 +9,11 @@ namespace NovelArm.Modules
     internal static class Json
     {
         #region Properties
-        internal static JsonSerializerOptions jsonOptions = new JsonSerializerOptions { WriteIndented = true };
+        internal static JsonSerializerOptions jsonOptions = new JsonSerializerOptions
+        {
+            WriteIndented = true,
+            IgnoreNullValues = true
+        };
         #endregion
 
         /// <summary>
@@ -28,7 +32,6 @@ namespace NovelArm.Modules
 
             catch (JsonException) { return false; }
             catch (ArgumentException) { return false; }
-
             return true;
         }
 
@@ -70,7 +73,7 @@ namespace NovelArm.Modules
             string JsonOutput = JsonSerializer.Serialize<T>(jsonData, jsonOptions);
             if (!Json.IsValid(JsonOutput))
                 return false;
-
+            
             // 파일로 저장
             File.WriteAllText(filePath, JsonOutput, new UTF8Encoding(encoderShouldEmitUTF8Identifier: false));
 

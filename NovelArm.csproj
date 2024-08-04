@@ -82,6 +82,7 @@
     <Prefer32Bit>true</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="PresentationCore" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -93,6 +94,7 @@
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
+    <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Forms\Configurator.cs">
@@ -101,22 +103,73 @@
     <Compile Include="Forms\Configurator.Designer.cs">
       <DependentUpon>Configurator.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\Overlays\CharDisplay.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Overlays\CharDisplay.Designer.cs">
+      <DependentUpon>CharDisplay.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Overlays\CharDisplayConfig.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Overlays\CharDisplayConfig.Designer.cs">
+      <DependentUpon>CharDisplayConfig.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Extends\ObjectExt.cs" />
+    <Compile Include="Modules\Extends\ProcessExt.cs" />
+    <Compile Include="Modules\GraphicsHelper.cs" />
+    <Compile Include="Modules\Imaging.cs" />
     <Compile Include="Modules\System\FileLock.cs" />
     <Compile Include="Modules\System\Files.cs" />
     <Compile Include="Modules\Json.cs" />
     <Compile Include="Modules\Keybind.cs" />
     <Compile Include="Modules\Settings.cs" />
+    <Compile Include="Modules\System\FileWatcher.cs" />
     <Compile Include="Modules\System\NativeApps.cs" />
+    <Compile Include="Modules\TextCounter.cs" />
+    <Compile Include="Modules\UI\Controls\ColorPicker\AdobeColors.cs" />
+    <Compile Include="Modules\UI\Controls\ColorLabel.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Modules\UI\Controls\ColorPicker\ColorBox.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Modules\UI\Controls\ColorPicker\ColorVerticalSlider.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Modules\UI\Controls\ColorPicker\ColorPicker.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modules\UI\Controls\OutlineLabel.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Modules\UI\DropShadow.cs" />
+    <Compile Include="Modules\UI\InputBox.cs" />
     <Compile Include="Modules\Updater.cs" />
-    <Compile Include="Modules\System\_Clipboard.cs" />
+    <Compile Include="Modules\System\WinRTClipboard.cs" />
     <Compile Include="Modules\System\NativeMethods.cs" />
-    <Compile Include="Modules\System\Startup.cs" />
+    <Compile Include="Modules\System\Registries.cs" />
     <Compile Include="Modules\TextConverter.cs" />
-    <Compile Include="Modules\_StringBuilder.cs" />
+    <Compile Include="Modules\Extends\StringBuilderExt.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Forms\Configurator.resx">
       <DependentUpon>Configurator.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Overlays\CharDisplay.resx">
+      <DependentUpon>CharDisplay.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Overlays\CharDisplayConfig.resx">
+      <DependentUpon>CharDisplayConfig.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\UI\Controls\ColorPicker\ColorBox.resx">
+      <DependentUpon>ColorBox.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\UI\Controls\ColorPicker\ColorVerticalSlider.resx">
+      <DependentUpon>ColorVerticalSlider.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\UI\Controls\ColorPicker\ColorPicker.resx">
+      <DependentUpon>ColorPicker.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -144,7 +197,13 @@
     <None Include="Properties\App.config" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\Github_logo_PNG1.png" />
+    <None Include="Resources\Github_Logo.png" />
+    <None Include="Resources\Discord_Logo.png" />
+    <None Include="Resources\Move.png" />
+    <None Include="Resources\Settings.png" />
+    <None Include="Resources\Transparency.png" />
+    <None Include="Resources\Search.png" />
+    <None Include="Resources\Text.png" />
     <Content Include="Wordpad.ico" />
   </ItemGroup>
   <ItemGroup />
@@ -153,7 +212,7 @@
       <Version>4.1.0</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.Windows.SDK.Contracts">
-      <Version>10.0.26100.1</Version>
+      <Version>10.0.22621.3233</Version>
     </PackageReference>
     <PackageReference Include="System.Text.Json">
       <Version>4.7.2</Version>

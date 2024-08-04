@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace NovelArm.Modules
 {
-    internal static class _StringBuilder
+    internal static class StringBuilderExt
     {
         /// <summary>
         /// 속도는 미세하게 느리지만, 새로운 객체를 복사하지 않도록 만든 StringBuilder IndexOf() 확장 함수입니다.

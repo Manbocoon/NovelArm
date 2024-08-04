@@ -2,7 +2,7 @@
 using System.Diagnostics;
 
 
-namespace NovelArm.Modules.System
+namespace NovelArm.Modules.Systems
 {
     internal static class NativeApps
     {
@@ -19,6 +19,5 @@ namespace NovelArm.Modules.System
             Process.Start(pInfo);
 
         }
-
     }
 }

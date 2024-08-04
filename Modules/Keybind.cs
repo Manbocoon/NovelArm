@@ -1,5 +1,7 @@
-﻿using System;
+﻿using NovelArm.Modules.Systems;
+using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -84,48 +86,65 @@ namespace NovelArm.Modules
             return keybinds;
         }
 
+        internal static bool PressedAllKeybinds(IList<int> keybinds)
+        {
+            return PressedAllKeybinds(keybinds.ToArray<int>());
+        }
+
         /// <summary>
         /// 사용자가 설정한 Keybind를 실시간으로 모두 입력했는지 확인합니다.
         /// </summary>
-        /// <param name="keybinds">int형 key값의 모음입니다.</param>
+        /// <param name="keybinds">int형 key값의 나열입니다.</param>
         /// <returns>제시된 Key들을 모두 눌렀는지의 여부입니다.</returns>
-        internal static bool PressedAllKeybinds(IList<int> keybinds)
+        internal static bool PressedAllKeybinds(params int[] keybinds)
         {
             // 단축키가 설정되지 않은 경우 누르지 않은 것으로 판단
-            if (keybinds.Count == 0)
+            if (keybinds.Count<int>() == 0)
                 return false;
 
             // 각 키들에 모두 KeyDown이 입력되었는지 확인
             int pressedKeyCount = 0;
-            for (byte i = 0; i < keybinds.Count; ++i)
+            for (byte i = 0; i < keybinds.Count<int>(); ++i)
             {
-                if (System.NativeMethods.GetAsyncKeyState(keybinds[i]) > 32767)
+                if (NativeMethods.GetAsyncKeyState(keybinds[i]) > 32767)
                     ++pressedKeyCount;
             }
 
             // 모든 단축키를 전부 누르지 않았다면 누르지 않은 것으로 판단
-            if (pressedKeyCount != keybinds.Count)
+            if (pressedKeyCount != keybinds.Count<int>())
             {
                 return false;
             }
 
             // 약 10초 동안 단축키들 중 하나라도 떨어지면 입력 성공 처리
-            for (int c=0; c<3333; ++c)
+            for (int c = 0; c < 3333; ++c)
             {
                 pressedKeyCount = 0;
-                for (byte i = 0; i < keybinds.Count; ++i)
+                for (byte i = 0; i < keybinds.Count<int>(); ++i)
                 {
-                    if (System.NativeMethods.GetAsyncKeyState(keybinds[i]) > 32767)
+                    if (NativeMethods.GetAsyncKeyState(keybinds[i]) > 32767)
                         ++pressedKeyCount;
                 }
 
-                if (pressedKeyCount < keybinds.Count)
+                if (pressedKeyCount < keybinds.Count<int>())
                     return true;
 
                 Thread.Sleep(3);
             }
 
             return false;
+        }
+
+        internal static bool CursorInForm(Form form)
+        {
+            NativeMethods.GetCursorPos(out Point cursorPos);
+            Rectangle formArea = Rectangle.Empty;
+            form.Invoke((MethodInvoker)delegate () { formArea = form.Bounds; });
+
+            if (!formArea.Contains(cursorPos))
+                return false;
+
+            return true;
         }
     }
 }

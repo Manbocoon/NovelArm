@@ -1,11 +1,12 @@
-﻿using System;
+﻿using NovelArm.Modules.Systems;
+using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Net;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
-using NovelArm.Modules.System;
 
 namespace NovelArm.Modules
 {
@@ -39,7 +40,7 @@ namespace NovelArm.Modules
             bool isConnected = false;
 
             try
-            { isConnected = System.NativeMethods.InternetGetConnectedState(out int desc, 0); }
+            { isConnected = NativeMethods.InternetGetConnectedState(out int desc, 0); }
 
             catch (Exception)
             { return false; }
@@ -89,12 +90,17 @@ namespace NovelArm.Modules
                         // 패치 노트 끝날 때까지 여러줄 추출
                         else if (webDataLine.Contains("og:description"))
                         {
+                            HighlightPatchNote(ref webDataLine);
                             patchNote.AppendLine(webDataLine);
                             readingPatchNote = true;
                             ++extractedData;
                         }
                         else if (readingPatchNote)
                         {
+                            if (String.IsNullOrWhiteSpace(webDataLine))
+                                continue;
+                            HighlightPatchNote(ref webDataLine);
+
                             patchNote.AppendLine(webDataLine);
                             if (webDataLine.Trim().EndsWith("/>"))
                                 readingPatchNote = false;
@@ -167,13 +173,26 @@ namespace NovelArm.Modules
         {
             string text = $"{appInfo.Name}\n{appInfo.Version}\n{appInfo.lastCheckedTime}\n{appInfo.PatchNote}";
             
-            using (var settings = new Settings())
-                settings.CreateDirectory();
+            Settings.CreateDirectory();
             
             if (!Json.WriteJsonToFile<AppInfo>(timeFilePath, appInfo))
                 return false;
 
             return true;
+        }
+
+        internal void HighlightPatchNote(ref string textLine)
+        {
+            string[] highlightTexts = new string[] { "기능 추가 및 변경", "버그 수정", "효율성 향상" };
+
+            foreach (string highlightText in highlightTexts)
+            {
+                if (textLine.Contains(highlightText))
+                {
+                    textLine = $"{textLine} ▼";
+                    return;
+                }
+            }
         }
 
 
@@ -192,10 +211,16 @@ namespace NovelArm.Modules
             {
                 try
                 { client.DownloadFile(downloadURL + "NovelArm.exe", newFilePath); }
-
+                // { File.Copy("C:\\NovelArm.exe", newFilePath); } 테스트 코드
                 catch (Exception ex)
                 { return "ERROR | " + ex.Message; }
             }
+
+            // 현재 설정 저장
+            using (var settings = new AppSettings())
+                settings.SaveToFile();
+            using (var settings = new OverlaySettings())
+                settings.SaveToFile();
 
             // 현재 프로세스의 파일명 변경
             string originalFilePath = $@"{Program.PATH}\{Files.GetUniqueFileName()}.old";
@@ -206,15 +231,10 @@ namespace NovelArm.Modules
             File.Move(newFilePath, Program.EXE_PATH);
 
             // 업데이트 옵션으로 새로운 파일 실행
-            ProcessStartInfo procInfo = new ProcessStartInfo
-            {
-                FileName = Program.EXE_PATH,
-                Arguments = $"/Update {Process.GetCurrentProcess().Id} {Path.GetFileName(originalFilePath)} {numberForFun}",
-                Verb = "runas",
-                CreateNoWindow = false,
-                UseShellExecute = false
-            };
-            new Process { StartInfo = procInfo }.Start();
+            new Process().ExecuteWithArguments(
+                filePath: Program.EXE_PATH,
+                arguments: $"/Update {Process.GetCurrentProcess().Id} {Path.GetFileName(originalFilePath)} {numberForFun}"
+                );
             Environment.Exit(0);
 
             return status;

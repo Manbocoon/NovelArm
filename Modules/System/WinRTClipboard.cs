@@ -8,9 +8,9 @@ using forms = System.Windows.Forms;
 using Windows.ApplicationModel.DataTransfer;
 using System.Threading;
 
-namespace NovelArm.Modules.System
+namespace NovelArm.Modules.Systems
 {
-    internal static class _Clipboard
+    internal static class WinRTClipboard
     {
         #region Properties
         internal static ClipboardHistoryItemsResult systemClipboard;
