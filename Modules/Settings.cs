@@ -7,6 +7,7 @@ using System.Text.Json;
 using System.Text;
 using System.Drawing;
 using System.Reflection;
+using System.ComponentModel;
 
 namespace NovelArm.Modules
 {
@@ -47,6 +48,7 @@ namespace NovelArm.Modules
         {
             public string Name { get; set; }
             public string Text { get; set; }
+            public string Tag { get; set; }
             public bool? Checked { get; set; }
             public int? SelectedIndex { get; set; }
         }
@@ -128,13 +130,21 @@ namespace NovelArm.Modules
                 controlInfo = new ControlInfo
                 {
                     Name = control.Name,
-                    Text = control.Text,
                 };
+                if (control is TextBox && control.Text != null)
+                    controlInfo.Text = control.Text;
+                if (control.Tag != null)
+                    controlInfo.Tag = control.Tag.ToString();
                 controlInfo.Checked = control.GetPropertyValue("Checked") as bool?;
                 controlInfo.SelectedIndex = control.GetPropertyValue("SelectedIndex") as int?;
 
+                // Name만 있는 항목은 제외
                 // 추가
-                controlData[type].Add(controlInfo);
+                if (    controlInfo.Text != null        || controlInfo.Tag != null
+                    ||  controlInfo.Checked.HasValue    || controlInfo.SelectedIndex.HasValue)
+                {
+                    controlData[type].Add(controlInfo);
+                }
 
                 // 만약 현재 컨트롤이 하위 컨트롤을 갖고 있는 객체라면
                 if (control.Controls.Count > 0)
@@ -163,7 +173,10 @@ namespace NovelArm.Modules
                     if (control == null)
                         continue;
 
-                    control.Text = controlInfo.Text;
+                    if (controlInfo.Text != null)
+                        control.Text = controlInfo.Text;
+                    if (controlInfo.Tag != null)
+                        control.Tag = controlInfo.Tag;
                     control.SetPropertyValue("Checked", controlInfo.Checked ?? false);
                     try { control.SetPropertyValue("SelectedIndex", controlInfo.SelectedIndex ?? 0); }
                     catch (Exception) { control.SetPropertyValue("SelectedIndex", 0); }
@@ -255,7 +268,7 @@ namespace NovelArm.Modules
                 return;
 
             // Create the FontConverter.
-            System.ComponentModel.TypeConverter converter = System.ComponentModel.TypeDescriptor.GetConverter(typeof(Font));
+            TypeConverter converter = TypeDescriptor.GetConverter(typeof(Font));
             
             overlayData = new OverlayInfo 
             {

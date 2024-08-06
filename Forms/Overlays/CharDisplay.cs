@@ -21,7 +21,12 @@ namespace NovelArm
     {
         #region Properties
         private ushort SystemDoubleClickSpeed = 500;
-        private Thread _keyDetector;
+        private Thread _keyDetector, _windowDetector;
+        internal bool LockWindow = false, HideWindow = false;
+        internal string WritingAppCaption = null, WritingAppName = null;
+        internal Point WritingAppLocOffset = Point.Empty;
+        // internal IntPtr[] HideExceptions = new IntPtr[] { };
+
         internal Bitmap bitmapOnScreen;
         internal CharDisplayConfig configForm = new CharDisplayConfig();
         internal IntPtr thisHandle = IntPtr.Zero;
@@ -95,6 +100,10 @@ namespace NovelArm
             _keyDetector.IsBackground = true;
             _keyDetector.Start();
 
+            _windowDetector = new Thread(HideAndLockWindow);
+            _windowDetector.IsBackground = true;
+            _windowDetector.Start();
+
             // 포개진 Sizer 폼이 클릭 가능하므로 클릭 불가능하도록 고정
             originalStyle = NativeMethods.GetWindowLong(this.Handle, -20);
             clickable = false;
@@ -103,6 +112,9 @@ namespace NovelArm
             configForm.parentForm = this;
             configForm.Show();
             configForm.Visible = false;
+
+            // 창 숨기기 예외처리 배열에 추가
+            // HideExceptions = new IntPtr[] { this.Handle, configForm.Handle, Program.configForm.Handle };
         }
 
         protected override CreateParams CreateParams
@@ -322,12 +334,88 @@ namespace NovelArm
             }
         }
 
-        internal void CloseMouseDetector()
+        internal void HideAndLockWindow()
         {
-            if (_keyDetector != null && _keyDetector.IsAlive)
-                _keyDetector.Abort();
-        }
+            while (true)
+            {
+                if (String.IsNullOrEmpty(WritingAppCaption))
+                {
+                    Thread.Sleep(500);
+                    continue;
+                }
 
+                // 최상단 창이 사용자가 설정한 집필 프로그램인지 확인
+                IntPtr foregroundHwnd = NativeMethods.GetForegroundWindow();
+
+                // 프로그램 관련 핸들은 전부 예외 처리
+                /*
+                bool isException = false;
+                foreach (var exception in HideExceptions)
+                {
+                    if (exception == foregroundHwnd)
+                    {
+                        isException = true;
+                        break;
+                    }
+                }
+                */
+                StringBuilder windowText = new StringBuilder(1024);
+                NativeMethods.GetWindowText(foregroundHwnd, windowText, windowText.Capacity);
+
+                /*
+                프로세스명을 비교한다면 Dianogstics.Process은 메모리 누수가 심해서 Win32 API로 사용해야
+                GetWindowThreadProcessId -> OpenProcess -> GetProcessImageFileName -> CloseHandle
+                
+                NativeMethods.GetWindowThreadProcessId(foregroundHwnd, out int pid);
+                if (process.ProcessName.Equals(WritingAppName))
+                    isWritingApp = true;
+                process.Dispose();
+                */
+
+                // 캡션으로 비교
+                bool isWritingApp = false;
+                if (windowText.IndexOfExt(WritingAppCaption, 0, true) != -1)
+                    isWritingApp = true;
+                windowText.Clear();
+
+                // 표시와 위치 고정
+                if (HideWindow)
+                {
+                    if (isWritingApp) // || isException
+                        Invoke((MethodInvoker)delegate () {
+                            if (!Visible)
+                                Visible = true; 
+                        });
+                    else
+                        Invoke((MethodInvoker)delegate () {
+                            if (Visible)
+                                Visible = false;
+                        });
+                }
+                /*
+                if (LockWindow)
+                {
+                    if (WritingAppLocOffset == Point.Empty)
+                        continue;
+
+                    if (isWritingApp)
+                    {
+                        NativeMethods.RECT writingAppRect = default;
+                        NativeMethods.GetWindowRect(foregroundHwnd, ref writingAppRect);
+
+                        Invoke((MethodInvoker)delegate () {
+                            Location = new Point(writingAppRect.left + WritingAppLocOffset.X, writingAppRect.top + WritingAppLocOffset.Y);
+                        });
+
+                        GC.Collect();
+                    }
+
+                }
+                */
+                GC.Collect(0);
+                Thread.Sleep(500);
+            }
+        }
 
 
         internal void SyncDraft()
@@ -347,6 +435,8 @@ namespace NovelArm
             Invoke((MethodInvoker)delegate () {
                 SelectBitmap(); 
             });
+
+            GC.Collect(0);
         }
     }
 }

@@ -24,8 +24,15 @@ namespace NovelArm
             {
                 Size = new System.Drawing.Size(size.Width - 20, 23),
                 Location = new System.Drawing.Point(10, size.Height - 33),
-                Text = input
+                Text = input,
+                Multiline = false
             };
+            /*
+            if (multiLine)
+            {
+                textBox.Height += 46;
+                inputBox.Height += 46;
+            }*/
             inputBox.Controls.Add(textBox);
 
             Button okButton = new Button

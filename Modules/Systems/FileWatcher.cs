@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -76,6 +77,8 @@ namespace NovelArm.Modules.Systems
             string fileExtension = Path.GetExtension(fullFilePath);
             string targetFileExtension = ".extension";
 
+            // 과부하 방지
+            EventEnabled = false;
 
             // 스크리브너
             if (selectedApp == "Scrivener")
@@ -92,7 +95,10 @@ namespace NovelArm.Modules.Systems
 
             // 설정된 앱의 원고 파일과 다른 확장자면 취소
             if (fileExtension != targetFileExtension)
+            {
+                EventEnabled = true;
                 return;
+            }
 
             // 20초 이내에 파일 읽어들이기
             string fileContent = null;
@@ -110,7 +116,7 @@ namespace NovelArm.Modules.Systems
                 if (read_success)
                     break;
 
-                System.Threading.Thread.Sleep(250);
+                Thread.Sleep(250);
             }
 
             // 확장자에 따라 다르게 처리
@@ -125,106 +131,9 @@ namespace NovelArm.Modules.Systems
             // 오버레이 화면에 표시
             Program.configForm.charDisplay.SyncDraft();
 
-            // 새로운 원고를 찾는 중이라면
-            /*
-            if (finding)
-            {
-                Program.configForm.Invoke((MethodInvoker)delegate () { 
-                    overlayHwnd = Program.configForm.charDisplay.Handle;
-                    overlayForm = Program.configForm.charDisplay;
-                });
-
-                switch (selectedApp)
-                {
-                    case "Scrivener":
-                        // 제대로 된 원고 파일이 아닐 경우 취소    content.rtf || content.new.rtf
-                        if (!fileName.Contains("content"))
-                            return;
-
-                        // 스크리브너가 자동 생성하는 .old | .new 무시
-                        fileName = fileName.Replace(".new.", ".").Replace(".old.", ".");
-                        fullFilePath = Path.Combine(Path.GetDirectoryName(fullFilePath), fileName);
-
-                        string draft = null, draft_plain = null;
-                        try
-                        {
-                            draft = File.ReadAllText(fullFilePath, new UTF8Encoding(false)).Trim();
-                            draft_plain = TextConverter.RtfToPlainText(draft);
-                            draft_plain = draft_plain.Length > 700 ? draft_plain.Substring(0, 700) : draft_plain;
-                        }
-                        catch (Exception) { }
-                        
-                        if (string.IsNullOrEmpty(draft_plain))
-                            return;
-
-                        if (overlayHwnd != IntPtr.Zero)
-                            NativeMethods.SetForegroundWindow(overlayHwnd);
-
-                        DialogResult userAction = DialogResult.None;
-                        Program.configForm.Invoke((MethodInvoker)delegate () {
-                            userAction = MessageBox.Show(overlayForm, $"방금 탐지한 원고 파일을 최대 700자만큼 보여드리겠습니다. 찾으시던 원고가 맞나요?\n\n====================\n\n{draft_plain.Trim()}", "알림", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
-                        });
-                        if (userAction == DialogResult.Yes)
-                        {
-                            finding = false;
-                            draftFilePath = fullFilePath;
-                            return;
-                        }
-                        break;
-
-                    case "Notepad":
-
-                        break;
-
-                    default:
-                        break;
-                }
-            }
-            
-            // 원고가 설정되었고 해당 파일도 존재할 경우
-            else if (File.Exists(draftFilePath))
-            {
-                if (selectedApp == "Scrivener")
-                {
-                    fileName = fileName.Replace(".new.", ".").Replace(".old.", ".");
-                    fullFilePath = Path.Combine(Path.GetDirectoryName(fullFilePath), fileName);
-                }
-
-                // 파일 읽어들이기
-                string fileContent = null;
-                bool read_success = false;
-                while (!read_success)
-                {
-                    try
-                    {
-                        fileContent = File.ReadAllText(fullFilePath, new UTF8Encoding(false)).Trim();
-                        read_success = true;
-                    }
-                    catch (IOException) { read_success = false; }
-
-                    System.Threading.Thread.Sleep(250);
-                }
-
-                // 확장자에 따라 다르게 처리
-                if (fileExtension == ".rtf")
-                {
-                    verifiedDraft = TextConverter.RtfToPlainText(fileContent);
-                }
-
-                else if (fileExtension == ".txt")
-                {
-                    verifiedDraft = fileContent;
-                }
-                verifiedDraft = verifiedDraft.Trim();
-
-                // 오버레이 화면에 표시
-                Program.configForm.charDisplay.SyncDraft();
-            }
-            */
-
-
-
-
+            // 과부하 방지
+            Thread.Sleep(250);
+            EventEnabled = true;
         }
 
     }

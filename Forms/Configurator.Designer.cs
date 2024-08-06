@@ -1,4 +1,6 @@
-﻿
+﻿using System.ComponentModel;
+using System.Windows.Forms;
+
 namespace NovelArm
 {
     partial class ConfigForm
@@ -6,7 +8,7 @@ namespace NovelArm
         /// <summary>
         /// 필수 디자이너 변수입니다.
         /// </summary>
-        private System.ComponentModel.IContainer components = null;
+        private IContainer components = null;
 
         /// <summary>
         /// 사용 중인 모든 리소스를 정리합니다.
@@ -46,6 +48,10 @@ namespace NovelArm
             this.regStartup = new System.Windows.Forms.CheckBox();
             this.pageLiveCount = new System.Windows.Forms.TabPage();
             this.charDisplayGroup = new System.Windows.Forms.GroupBox();
+            this.charAppWindow = new System.Windows.Forms.TextBox();
+            this.labelCharAppWindow = new System.Windows.Forms.Label();
+            this.charHideWindow = new System.Windows.Forms.CheckBox();
+            this.charLockWindow = new System.Windows.Forms.CheckBox();
             this.charUseDisplay = new System.Windows.Forms.CheckBox();
             this.charDraftPath = new System.Windows.Forms.TextBox();
             this.labelCharDraftPath = new System.Windows.Forms.Label();
@@ -149,7 +155,7 @@ namespace NovelArm
             this.tabMenu.Location = new System.Drawing.Point(199, 12);
             this.tabMenu.Name = "tabMenu";
             this.tabMenu.SelectedIndex = 0;
-            this.tabMenu.Size = new System.Drawing.Size(531, 602);
+            this.tabMenu.Size = new System.Drawing.Size(531, 632);
             this.tabMenu.TabIndex = 3;
             // 
             // pageApp
@@ -159,7 +165,7 @@ namespace NovelArm
             this.pageApp.Location = new System.Drawing.Point(4, 26);
             this.pageApp.Name = "pageApp";
             this.pageApp.Padding = new System.Windows.Forms.Padding(3);
-            this.pageApp.Size = new System.Drawing.Size(523, 572);
+            this.pageApp.Size = new System.Drawing.Size(523, 602);
             this.pageApp.TabIndex = 0;
             this.pageApp.Text = "일반";
             this.pageApp.UseVisualStyleBackColor = true;
@@ -238,13 +244,17 @@ namespace NovelArm
             this.pageLiveCount.Location = new System.Drawing.Point(4, 26);
             this.pageLiveCount.Name = "pageLiveCount";
             this.pageLiveCount.Padding = new System.Windows.Forms.Padding(3);
-            this.pageLiveCount.Size = new System.Drawing.Size(523, 572);
+            this.pageLiveCount.Size = new System.Drawing.Size(523, 602);
             this.pageLiveCount.TabIndex = 1;
             this.pageLiveCount.Text = "글자수 표시";
             this.pageLiveCount.UseVisualStyleBackColor = true;
             // 
             // charDisplayGroup
             // 
+            this.charDisplayGroup.Controls.Add(this.charAppWindow);
+            this.charDisplayGroup.Controls.Add(this.labelCharAppWindow);
+            this.charDisplayGroup.Controls.Add(this.charHideWindow);
+            this.charDisplayGroup.Controls.Add(this.charLockWindow);
             this.charDisplayGroup.Controls.Add(this.charUseDisplay);
             this.charDisplayGroup.Controls.Add(this.charDraftPath);
             this.charDisplayGroup.Controls.Add(this.labelCharDraftPath);
@@ -256,10 +266,56 @@ namespace NovelArm
             this.charDisplayGroup.Font = new System.Drawing.Font("맑은 고딕", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.charDisplayGroup.Location = new System.Drawing.Point(3, 256);
             this.charDisplayGroup.Name = "charDisplayGroup";
-            this.charDisplayGroup.Size = new System.Drawing.Size(517, 238);
+            this.charDisplayGroup.Size = new System.Drawing.Size(517, 307);
             this.charDisplayGroup.TabIndex = 7;
             this.charDisplayGroup.TabStop = false;
             this.charDisplayGroup.Text = "감지 및 표시";
+            // 
+            // charAppWindow
+            // 
+            this.charAppWindow.BackColor = System.Drawing.Color.White;
+            this.charAppWindow.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.charAppWindow.Font = new System.Drawing.Font("맑은 고딕", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.charAppWindow.Location = new System.Drawing.Point(167, 137);
+            this.charAppWindow.Name = "charAppWindow";
+            this.charAppWindow.ReadOnly = true;
+            this.charAppWindow.Size = new System.Drawing.Size(338, 25);
+            this.charAppWindow.TabIndex = 25;
+            this.charAppWindow.Click += new System.EventHandler(this.charAppWindow_Click);
+            // 
+            // labelCharAppWindow
+            // 
+            this.labelCharAppWindow.Font = new System.Drawing.Font("맑은 고딕", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.labelCharAppWindow.Location = new System.Drawing.Point(6, 143);
+            this.labelCharAppWindow.Name = "labelCharAppWindow";
+            this.labelCharAppWindow.Size = new System.Drawing.Size(151, 17);
+            this.labelCharAppWindow.TabIndex = 24;
+            this.labelCharAppWindow.Text = "집필 프로그램 창:";
+            this.labelCharAppWindow.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // charHideWindow
+            // 
+            this.charHideWindow.AutoSize = true;
+            this.charHideWindow.Font = new System.Drawing.Font("맑은 고딕", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.charHideWindow.Location = new System.Drawing.Point(6, 53);
+            this.charHideWindow.Name = "charHideWindow";
+            this.charHideWindow.Size = new System.Drawing.Size(128, 21);
+            this.charHideWindow.TabIndex = 23;
+            this.charHideWindow.Text = "집필 중에만 표시";
+            this.charHideWindow.UseVisualStyleBackColor = true;
+            this.charHideWindow.Click += new System.EventHandler(this.charHideWindow_Click);
+            // 
+            // charLockWindow
+            // 
+            this.charLockWindow.AutoSize = true;
+            this.charLockWindow.Font = new System.Drawing.Font("맑은 고딕", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.charLockWindow.Location = new System.Drawing.Point(206, 26);
+            this.charLockWindow.Name = "charLockWindow";
+            this.charLockWindow.Size = new System.Drawing.Size(299, 21);
+            this.charLockWindow.TabIndex = 22;
+            this.charLockWindow.Text = "오버레이를 집필 프로그램의 특정 위치에 고정";
+            this.charLockWindow.UseVisualStyleBackColor = true;
+            this.charLockWindow.Visible = false;
             // 
             // charUseDisplay
             // 
@@ -278,7 +334,7 @@ namespace NovelArm
             this.charDraftPath.BackColor = System.Drawing.Color.White;
             this.charDraftPath.Cursor = System.Windows.Forms.Cursors.Hand;
             this.charDraftPath.Font = new System.Drawing.Font("맑은 고딕", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.charDraftPath.Location = new System.Drawing.Point(167, 113);
+            this.charDraftPath.Location = new System.Drawing.Point(167, 178);
             this.charDraftPath.Name = "charDraftPath";
             this.charDraftPath.ReadOnly = true;
             this.charDraftPath.Size = new System.Drawing.Size(338, 25);
@@ -289,7 +345,7 @@ namespace NovelArm
             // labelCharDraftPath
             // 
             this.labelCharDraftPath.Font = new System.Drawing.Font("맑은 고딕", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.labelCharDraftPath.Location = new System.Drawing.Point(7, 119);
+            this.labelCharDraftPath.Location = new System.Drawing.Point(7, 184);
             this.labelCharDraftPath.Name = "labelCharDraftPath";
             this.labelCharDraftPath.Size = new System.Drawing.Size(151, 17);
             this.labelCharDraftPath.TabIndex = 19;
@@ -299,7 +355,7 @@ namespace NovelArm
             // labelCharMainApp
             // 
             this.labelCharMainApp.Font = new System.Drawing.Font("맑은 고딕", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.labelCharMainApp.Location = new System.Drawing.Point(6, 77);
+            this.labelCharMainApp.Location = new System.Drawing.Point(6, 101);
             this.labelCharMainApp.Name = "labelCharMainApp";
             this.labelCharMainApp.Size = new System.Drawing.Size(151, 17);
             this.labelCharMainApp.TabIndex = 17;
@@ -315,9 +371,9 @@ namespace NovelArm
             this.charMainApp.Font = new System.Drawing.Font("맑은 고딕", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.charMainApp.FormattingEnabled = true;
             this.charMainApp.Items.AddRange(new object[] {
-            "메모장(Notepad) 및 *.txt 작성 프로그램",
+            "모든 *.txt 작성 프로그램",
             "스크리브너(Scrivener 3)"});
-            this.charMainApp.Location = new System.Drawing.Point(167, 73);
+            this.charMainApp.Location = new System.Drawing.Point(167, 97);
             this.charMainApp.Name = "charMainApp";
             this.charMainApp.Size = new System.Drawing.Size(338, 25);
             this.charMainApp.TabIndex = 16;
@@ -326,7 +382,7 @@ namespace NovelArm
             // labelCharOverlayFormat
             // 
             this.labelCharOverlayFormat.Font = new System.Drawing.Font("맑은 고딕", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.labelCharOverlayFormat.Location = new System.Drawing.Point(7, 161);
+            this.labelCharOverlayFormat.Location = new System.Drawing.Point(7, 226);
             this.labelCharOverlayFormat.Name = "labelCharOverlayFormat";
             this.labelCharOverlayFormat.Size = new System.Drawing.Size(151, 17);
             this.labelCharOverlayFormat.TabIndex = 13;
@@ -336,7 +392,7 @@ namespace NovelArm
             // charOverlayFormat
             // 
             this.charOverlayFormat.Font = new System.Drawing.Font("맑은 고딕", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.charOverlayFormat.Location = new System.Drawing.Point(167, 155);
+            this.charOverlayFormat.Location = new System.Drawing.Point(167, 220);
             this.charOverlayFormat.Multiline = true;
             this.charOverlayFormat.Name = "charOverlayFormat";
             this.charOverlayFormat.Size = new System.Drawing.Size(338, 66);
@@ -462,7 +518,7 @@ namespace NovelArm
             this.pageTarget.Location = new System.Drawing.Point(4, 26);
             this.pageTarget.Name = "pageTarget";
             this.pageTarget.Padding = new System.Windows.Forms.Padding(3);
-            this.pageTarget.Size = new System.Drawing.Size(523, 572);
+            this.pageTarget.Size = new System.Drawing.Size(523, 602);
             this.pageTarget.TabIndex = 2;
             this.pageTarget.Text = "목표";
             this.pageTarget.UseVisualStyleBackColor = true;
@@ -484,7 +540,7 @@ namespace NovelArm
             this.pageAutoComplete.Location = new System.Drawing.Point(4, 26);
             this.pageAutoComplete.Name = "pageAutoComplete";
             this.pageAutoComplete.Padding = new System.Windows.Forms.Padding(3);
-            this.pageAutoComplete.Size = new System.Drawing.Size(523, 572);
+            this.pageAutoComplete.Size = new System.Drawing.Size(523, 602);
             this.pageAutoComplete.TabIndex = 3;
             this.pageAutoComplete.Text = "자동 완성";
             this.pageAutoComplete.UseVisualStyleBackColor = true;
@@ -506,7 +562,7 @@ namespace NovelArm
             this.pageConvert.Location = new System.Drawing.Point(4, 26);
             this.pageConvert.Name = "pageConvert";
             this.pageConvert.Padding = new System.Windows.Forms.Padding(3);
-            this.pageConvert.Size = new System.Drawing.Size(523, 572);
+            this.pageConvert.Size = new System.Drawing.Size(523, 602);
             this.pageConvert.TabIndex = 4;
             this.pageConvert.Text = "변환";
             this.pageConvert.UseVisualStyleBackColor = true;
@@ -582,7 +638,7 @@ namespace NovelArm
             this.pageHelp.Location = new System.Drawing.Point(4, 26);
             this.pageHelp.Name = "pageHelp";
             this.pageHelp.Padding = new System.Windows.Forms.Padding(3);
-            this.pageHelp.Size = new System.Drawing.Size(523, 572);
+            this.pageHelp.Size = new System.Drawing.Size(523, 602);
             this.pageHelp.TabIndex = 5;
             this.pageHelp.Text = "도움말";
             this.pageHelp.UseVisualStyleBackColor = true;
@@ -603,7 +659,7 @@ namespace NovelArm
             this.navigateDiscord.Name = "navigateDiscord";
             this.navigateDiscord.Size = new System.Drawing.Size(517, 100);
             this.navigateDiscord.TabIndex = 12;
-            this.navigateDiscord.Text = "도움 받기 / 정보 공유";
+            this.navigateDiscord.Text = "문의 / 정보 공유";
             this.navigateDiscord.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             this.navigateDiscord.UseVisualStyleBackColor = false;
             this.navigateDiscord.Click += new System.EventHandler(this.navigateDiscord_Click);
@@ -636,14 +692,14 @@ namespace NovelArm
             this.panelMenu.Font = new System.Drawing.Font("맑은 고딕", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.panelMenu.Location = new System.Drawing.Point(12, 12);
             this.panelMenu.Name = "panelMenu";
-            this.panelMenu.Size = new System.Drawing.Size(181, 602);
+            this.panelMenu.Size = new System.Drawing.Size(181, 632);
             this.panelMenu.TabIndex = 4;
             // 
             // ConfigForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(742, 626);
+            this.ClientSize = new System.Drawing.Size(742, 656);
             this.Controls.Add(this.panelMenu);
             this.Controls.Add(this.tabMenu);
             this.Font = new System.Drawing.Font("맑은 고딕", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
@@ -723,6 +779,10 @@ namespace NovelArm
         private System.Windows.Forms.Button navigateDiscord;
         private System.Windows.Forms.TextBox charDraftPath;
         private System.Windows.Forms.CheckBox charUseDisplay;
+        private System.Windows.Forms.CheckBox charHideWindow;
+        private System.Windows.Forms.CheckBox charLockWindow;
+        private TextBox charAppWindow;
+        private Label labelCharAppWindow;
     }
 }
 

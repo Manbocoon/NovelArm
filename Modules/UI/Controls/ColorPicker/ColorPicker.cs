@@ -10,6 +10,7 @@
 /******************************************************************/
 
 using System;
+using System.ComponentModel;
 using System.Drawing;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
@@ -58,20 +59,20 @@ namespace NovelArm.Modules.UI
 
 		#region Designer Generated Variables
 
-		private System.Windows.Forms.Label m_lbl_SelectColor;
-		private System.Windows.Forms.PictureBox m_pbx_BlankBox;
-		private System.Windows.Forms.Button m_cmd_OK;
-		private System.Windows.Forms.Button m_cmd_Cancel;
-		private System.Windows.Forms.TextBox m_txt_Red;
-		private System.Windows.Forms.TextBox m_txt_Green;
-		private System.Windows.Forms.TextBox m_txt_Blue;
-		private System.Windows.Forms.TextBox m_txt_Hex;
-		private System.Windows.Forms.Label m_lbl_HexPound;
-		private System.Windows.Forms.Label m_lbl_Primary_Color;
-		private System.Windows.Forms.Label m_lbl_Secondary_Color;
+		private Label m_lbl_SelectColor;
+		private PictureBox m_pbx_BlankBox;
+		private Button m_cmd_OK;
+		private Button m_cmd_Cancel;
+		private TextBox m_txt_Red;
+		private TextBox m_txt_Green;
+		private TextBox m_txt_Blue;
+		private TextBox m_txt_Hex;
+		private Label m_lbl_HexPound;
+		private Label m_lbl_Primary_Color;
+		private Label m_lbl_Secondary_Color;
 		private ColorVerticalSlider m_ctrl_ThinBox;
 		private ColorBox m_ctrl_BigBox;
-		private System.Windows.Forms.Label m_lbl_Key_Symbol;
+		private Label m_lbl_Key_Symbol;
         private Label m_label_blue;
         private Label m_label_green;
         private Label m_label_red;
@@ -79,7 +80,7 @@ namespace NovelArm.Modules.UI
         /// <summary>
         /// Required designer variable.
         /// </summary>
-        private System.ComponentModel.Container components = null;
+        private Container components = null;
 
 		#endregion
 
@@ -135,25 +136,25 @@ namespace NovelArm.Modules.UI
 		{
             NovelArm.Modules.UI.AdobeColors.HSL hsl1 = new NovelArm.Modules.UI.AdobeColors.HSL();
             NovelArm.Modules.UI.AdobeColors.HSL hsl2 = new NovelArm.Modules.UI.AdobeColors.HSL();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ColorPicker));
-            this.m_lbl_SelectColor = new System.Windows.Forms.Label();
-            this.m_pbx_BlankBox = new System.Windows.Forms.PictureBox();
-            this.m_cmd_OK = new System.Windows.Forms.Button();
-            this.m_cmd_Cancel = new System.Windows.Forms.Button();
-            this.m_txt_Red = new System.Windows.Forms.TextBox();
-            this.m_txt_Green = new System.Windows.Forms.TextBox();
-            this.m_txt_Blue = new System.Windows.Forms.TextBox();
-            this.m_txt_Hex = new System.Windows.Forms.TextBox();
-            this.m_lbl_HexPound = new System.Windows.Forms.Label();
-            this.m_lbl_Primary_Color = new System.Windows.Forms.Label();
-            this.m_lbl_Secondary_Color = new System.Windows.Forms.Label();
-            this.m_lbl_Key_Symbol = new System.Windows.Forms.Label();
-            this.m_label_blue = new System.Windows.Forms.Label();
-            this.m_label_green = new System.Windows.Forms.Label();
-            this.m_label_red = new System.Windows.Forms.Label();
+            ComponentResourceManager resources = new ComponentResourceManager(typeof(ColorPicker));
+            this.m_lbl_SelectColor = new Label();
+            this.m_pbx_BlankBox = new PictureBox();
+            this.m_cmd_OK = new Button();
+            this.m_cmd_Cancel = new Button();
+            this.m_txt_Red = new TextBox();
+            this.m_txt_Green = new TextBox();
+            this.m_txt_Blue = new TextBox();
+            this.m_txt_Hex = new TextBox();
+            this.m_lbl_HexPound = new Label();
+            this.m_lbl_Primary_Color = new Label();
+            this.m_lbl_Secondary_Color = new Label();
+            this.m_lbl_Key_Symbol = new Label();
+            this.m_label_blue = new Label();
+            this.m_label_green = new Label();
+            this.m_label_red = new Label();
             this.m_ctrl_BigBox = new NovelArm.Modules.UI.ColorBox();
             this.m_ctrl_ThinBox = new NovelArm.Modules.UI.ColorVerticalSlider();
-            ((System.ComponentModel.ISupportInitialize)(this.m_pbx_BlankBox)).BeginInit();
+            ((ISupportInitialize)(this.m_pbx_BlankBox)).BeginInit();
             this.SuspendLayout();
             // 
             // m_lbl_SelectColor
@@ -170,7 +171,7 @@ namespace NovelArm.Modules.UI
             // m_pbx_BlankBox
             // 
             this.m_pbx_BlankBox.BackColor = System.Drawing.Color.LightGray;
-            this.m_pbx_BlankBox.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.m_pbx_BlankBox.BorderStyle = BorderStyle.Fixed3D;
             this.m_pbx_BlankBox.Location = new System.Drawing.Point(379, 34);
             this.m_pbx_BlankBox.Name = "m_pbx_BlankBox";
             this.m_pbx_BlankBox.Size = new System.Drawing.Size(107, 76);
@@ -183,7 +184,7 @@ namespace NovelArm.Modules.UI
             this.m_cmd_OK.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(100)))), ((int)(((byte)(100)))));
             this.m_cmd_OK.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(190)))), ((int)(((byte)(190)))), ((int)(((byte)(190)))));
             this.m_cmd_OK.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Gainsboro;
-            this.m_cmd_OK.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.m_cmd_OK.FlatStyle = FlatStyle.Flat;
             this.m_cmd_OK.ForeColor = System.Drawing.Color.Black;
             this.m_cmd_OK.Location = new System.Drawing.Point(504, 34);
             this.m_cmd_OK.Name = "m_cmd_OK";
@@ -196,11 +197,11 @@ namespace NovelArm.Modules.UI
             // m_cmd_Cancel
             // 
             this.m_cmd_Cancel.BackColor = System.Drawing.Color.White;
-            this.m_cmd_Cancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this.m_cmd_Cancel.DialogResult = DialogResult.Cancel;
             this.m_cmd_Cancel.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(100)))), ((int)(((byte)(100)))));
             this.m_cmd_Cancel.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(190)))), ((int)(((byte)(190)))), ((int)(((byte)(190)))));
             this.m_cmd_Cancel.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Gainsboro;
-            this.m_cmd_Cancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.m_cmd_Cancel.FlatStyle = FlatStyle.Flat;
             this.m_cmd_Cancel.ForeColor = System.Drawing.Color.Black;
             this.m_cmd_Cancel.Location = new System.Drawing.Point(504, 64);
             this.m_cmd_Cancel.Name = "m_cmd_Cancel";
@@ -213,7 +214,7 @@ namespace NovelArm.Modules.UI
             // m_txt_Red
             // 
             this.m_txt_Red.BackColor = System.Drawing.Color.White;
-            this.m_txt_Red.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.m_txt_Red.BorderStyle = BorderStyle.FixedSingle;
             this.m_txt_Red.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.m_txt_Red.ForeColor = System.Drawing.Color.Black;
             this.m_txt_Red.Location = new System.Drawing.Point(418, 128);
@@ -225,7 +226,7 @@ namespace NovelArm.Modules.UI
             // m_txt_Green
             // 
             this.m_txt_Green.BackColor = System.Drawing.Color.White;
-            this.m_txt_Green.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.m_txt_Green.BorderStyle = BorderStyle.FixedSingle;
             this.m_txt_Green.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.m_txt_Green.ForeColor = System.Drawing.Color.Black;
             this.m_txt_Green.Location = new System.Drawing.Point(418, 155);
@@ -237,7 +238,7 @@ namespace NovelArm.Modules.UI
             // m_txt_Blue
             // 
             this.m_txt_Blue.BackColor = System.Drawing.Color.White;
-            this.m_txt_Blue.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.m_txt_Blue.BorderStyle = BorderStyle.FixedSingle;
             this.m_txt_Blue.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.m_txt_Blue.ForeColor = System.Drawing.Color.Black;
             this.m_txt_Blue.Location = new System.Drawing.Point(418, 182);
@@ -249,7 +250,7 @@ namespace NovelArm.Modules.UI
             // m_txt_Hex
             // 
             this.m_txt_Hex.BackColor = System.Drawing.Color.White;
-            this.m_txt_Hex.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.m_txt_Hex.BorderStyle = BorderStyle.FixedSingle;
             this.m_txt_Hex.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.m_txt_Hex.ForeColor = System.Drawing.Color.Black;
             this.m_txt_Hex.Location = new System.Drawing.Point(418, 234);
@@ -269,7 +270,7 @@ namespace NovelArm.Modules.UI
             // 
             // m_lbl_Primary_Color
             // 
-            this.m_lbl_Primary_Color.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.m_lbl_Primary_Color.FlatStyle = FlatStyle.Flat;
             this.m_lbl_Primary_Color.Location = new System.Drawing.Point(381, 35);
             this.m_lbl_Primary_Color.Name = "m_lbl_Primary_Color";
             this.m_lbl_Primary_Color.Size = new System.Drawing.Size(104, 37);
@@ -278,7 +279,7 @@ namespace NovelArm.Modules.UI
             // 
             // m_lbl_Secondary_Color
             // 
-            this.m_lbl_Secondary_Color.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.m_lbl_Secondary_Color.FlatStyle = FlatStyle.Flat;
             this.m_lbl_Secondary_Color.Location = new System.Drawing.Point(381, 72);
             this.m_lbl_Secondary_Color.Name = "m_lbl_Secondary_Color";
             this.m_lbl_Secondary_Color.Size = new System.Drawing.Size(104, 37);
@@ -371,16 +372,16 @@ namespace NovelArm.Modules.UI
             this.Controls.Add(this.m_cmd_OK);
             this.Controls.Add(this.m_pbx_BlankBox);
             this.Controls.Add(this.m_lbl_SelectColor);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.FormBorderStyle = FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "ColorPicker";
             this.ShowInTaskbar = false;
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.StartPosition = FormStartPosition.CenterScreen;
             this.Text = "색상 선택기";
             this.Load += new System.EventHandler(this.frmColorPicker_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.m_pbx_BlankBox)).EndInit();
+            ((ISupportInitialize)(this.m_pbx_BlankBox)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -437,14 +438,14 @@ namespace NovelArm.Modules.UI
 			m_ctrl_BigBox.DrawStyle = ColorBox.eDrawStyle.Hue;
 		}
 
-		private void m_cmd_OK_Click(object sender, System.EventArgs e)
+		private void m_cmd_OK_Click(object sender, EventArgs e)
 		{
 			this.DialogResult = DialogResult.OK;
 			this.Close();
 		}
 
 
-		private void m_cmd_Cancel_Click(object sender, System.EventArgs e)
+		private void m_cmd_Cancel_Click(object sender, EventArgs e)
 		{
 			this.DialogResult = DialogResult.Cancel;
 			this.Close();
@@ -455,7 +456,7 @@ namespace NovelArm.Modules.UI
 
 		#region Primary Picture Box (m_ctrl_BigBox)
 
-		private void m_ctrl_BigBox_Scroll(object sender, System.EventArgs e)
+		private void m_ctrl_BigBox_Scroll(object sender, EventArgs e)
 		{
 			m_hsl = m_ctrl_BigBox.HSL;
 			m_rgb = AdobeColors.HSL_to_RGB(m_hsl);
@@ -482,7 +483,7 @@ namespace NovelArm.Modules.UI
 
 		#region Secondary Picture Box (m_ctrl_ThinBox)
 
-		private void m_ctrl_ThinBox_Scroll(object sender, System.EventArgs e)
+		private void m_ctrl_ThinBox_Scroll(object sender, EventArgs e)
 		{
 			m_hsl = m_ctrl_ThinBox.HSL;
 			m_rgb = AdobeColors.HSL_to_RGB(m_hsl);
@@ -509,7 +510,7 @@ namespace NovelArm.Modules.UI
 
 		#region Hex Box (m_txt_Hex)
 
-		private void m_txt_Hex_Leave(object sender, System.EventArgs e)
+		private void m_txt_Hex_Leave(object sender, EventArgs e)
 		{
 			string text = m_txt_Hex.Text.ToUpper().Replace("#", null);
 			bool has_illegal_chars = false;
@@ -550,7 +551,7 @@ namespace NovelArm.Modules.UI
 
 		#region Color Boxes
 
-		private void m_lbl_Primary_Color_Click(object sender, System.EventArgs e)
+		private void m_lbl_Primary_Color_Click(object sender, EventArgs e)
 		{
 			m_rgb = m_lbl_Primary_Color.BackColor;
 			m_hsl = AdobeColors.RGB_to_HSL(m_rgb);
@@ -570,7 +571,7 @@ namespace NovelArm.Modules.UI
 		}
 
 
-		private void m_lbl_Secondary_Color_Click(object sender, System.EventArgs e)
+		private void m_lbl_Secondary_Color_Click(object sender, EventArgs e)
 		{
 			m_rgb = m_lbl_Secondary_Color.BackColor;
 			m_hsl = AdobeColors.RGB_to_HSL(m_rgb);
@@ -597,7 +598,7 @@ namespace NovelArm.Modules.UI
 
 		#region Text Boxes
 
-		private void m_txt_Red_Leave(object sender, System.EventArgs e)
+		private void m_txt_Red_Leave(object sender, EventArgs e)
 		{
 			string text = m_txt_Red.Text;
 			bool has_illegal_chars = false;
@@ -650,7 +651,7 @@ namespace NovelArm.Modules.UI
 		}
 
 
-		private void m_txt_Green_Leave(object sender, System.EventArgs e)
+		private void m_txt_Green_Leave(object sender, EventArgs e)
 		{
 			string text = m_txt_Green.Text;
 			bool has_illegal_chars = false;
@@ -701,7 +702,7 @@ namespace NovelArm.Modules.UI
 		}
 
 
-		private void m_txt_Blue_Leave(object sender, System.EventArgs e)
+		private void m_txt_Blue_Leave(object sender, EventArgs e)
 		{
 			string text = m_txt_Blue.Text;
 			bool has_illegal_chars = false;

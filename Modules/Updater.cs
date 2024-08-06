@@ -189,7 +189,7 @@ namespace NovelArm.Modules
             {
                 if (textLine.Contains(highlightText))
                 {
-                    textLine = $"{textLine} ▼";
+                    textLine = $"\n{textLine} ▼";
                     return;
                 }
             }
@@ -240,5 +240,68 @@ namespace NovelArm.Modules
             return status;
         }
 
+
+        /// <summary>
+        /// 두 버전값을 비교합니다.
+        /// </summary>
+        /// <param name="v1">버전1</param>
+        /// <param name="v2">버전2</param>
+        /// <returns>-1: v2가 더 최신임 || 0: 두 버전이 같음 || 1: v1이 더 최신임 || -1000: 오류</returns>
+        internal static int CompareVersionStrings(string v1, string v2)
+        {
+            if (String.IsNullOrWhiteSpace(v1) || !v1.Contains("."))
+                return 0;
+            if (String.IsNullOrWhiteSpace(v2) || !v2.Contains("."))
+                return 0;
+
+            int rc = -1000;
+
+            v1 = v1.ToLower();
+            v2 = v2.ToLower();
+
+            if (v1 == v2)
+                return 0;
+
+            string[] v1parts = v1.Split('.');
+            string[] v2parts = v2.Split('.');
+
+            for (int i = 0; i < v1parts.Length; i++)
+            {
+                if (v2parts.Length < i + 1)
+                    break;
+
+                string v1Token = v1parts[i];
+                string v2Token = v2parts[i];
+
+                int x;
+                bool v1Numeric = int.TryParse(v1Token, out x);
+                bool v2Numeric = int.TryParse(v2Token, out x);
+
+                if (v1Numeric && v2Numeric)
+                {
+                    while (v1Token.Length < v2Token.Length)
+                        v1Token = "0" + v1Token;
+                    while (v2Token.Length < v1Token.Length)
+                        v2Token = "0" + v2Token;
+                }
+
+                rc = String.Compare(v1Token, v2Token, StringComparison.Ordinal);
+                if (rc != 0)
+                    break;
+            }
+
+            if (rc == 0)
+            {
+                if (v1parts.Length > v2parts.Length)
+                    rc = 1; // v1 is higher version than v2
+                else if (v2parts.Length > v1parts.Length)
+                    rc = -1; // v1 is lower version than v2
+            }
+
+            if (rc == 0 || rc == -1000)
+                return rc;
+            else
+                return rc < 0 ? -1 : 1;
+        }
     }
 }

@@ -18,7 +18,7 @@ namespace NovelArm
         internal static readonly string PATH = Application.StartupPath;
         internal static readonly string EXE_PATH = Application.ExecutablePath;
 
-        internal static double VERSION = 99999.99999;
+        internal static string VERSION = Application.ProductVersion;
         internal static bool UPDATED = false;
         internal static bool HIDE_WINDOW = false;
         internal static readonly Process thisProcess = Process.GetCurrentProcess();
@@ -73,13 +73,6 @@ namespace NovelArm
         [STAThread]
         static void Main(string[] args)
         {
-            // 버전값
-            string content = Application.ProductVersion;
-            string pattern = @"(\d+[.]\d+)[.]\d+[.]\d+";
-            Match match = Regex.Match(content, pattern, RegexOptions.IgnoreCase);
-            if (match.Success)
-                double.TryParse(match.Groups[1].Value, out VERSION);
-
             // Arguments 처리
             string action = null;
             switch (args.Length)
@@ -136,7 +129,7 @@ namespace NovelArm
                 MessageBox.Show("프로그램이 이미 실행중입니다.\n\nWindows 작업 표시줄의 트레이 메뉴에서 확인해보세요.", APP_NAME, 0, MessageBoxIcon.Error);
                 return;
             }
-
+            
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);           
             configForm = new ConfigForm();

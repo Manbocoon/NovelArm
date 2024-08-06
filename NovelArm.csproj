@@ -116,16 +116,19 @@
       <DependentUpon>CharDisplayConfig.cs</DependentUpon>
     </Compile>
     <Compile Include="Modules\Extends\ObjectExt.cs" />
+    <Compile Include="Modules\Extends\PointExt.cs" />
     <Compile Include="Modules\Extends\ProcessExt.cs" />
     <Compile Include="Modules\GraphicsHelper.cs" />
     <Compile Include="Modules\Imaging.cs" />
-    <Compile Include="Modules\System\FileLock.cs" />
-    <Compile Include="Modules\System\Files.cs" />
+    <Compile Include="Modules\Systems\AltTabSwitcher.cs" />
+    <Compile Include="Modules\Systems\FileLock.cs" />
+    <Compile Include="Modules\Systems\Files.cs" />
     <Compile Include="Modules\Json.cs" />
     <Compile Include="Modules\Keybind.cs" />
     <Compile Include="Modules\Settings.cs" />
-    <Compile Include="Modules\System\FileWatcher.cs" />
-    <Compile Include="Modules\System\NativeApps.cs" />
+    <Compile Include="Modules\Systems\FileWatcher.cs" />
+    <Compile Include="Modules\Systems\NativeApps.cs" />
+    <Compile Include="Modules\Systems\Processes.cs" />
     <Compile Include="Modules\TextCounter.cs" />
     <Compile Include="Modules\UI\Controls\ColorPicker\AdobeColors.cs" />
     <Compile Include="Modules\UI\Controls\ColorLabel.cs">
@@ -145,10 +148,11 @@
     </Compile>
     <Compile Include="Modules\UI\DropShadow.cs" />
     <Compile Include="Modules\UI\InputBox.cs" />
+    <Compile Include="Modules\UI\ProecssSelectBox.cs" />
     <Compile Include="Modules\Updater.cs" />
-    <Compile Include="Modules\System\WinRTClipboard.cs" />
-    <Compile Include="Modules\System\NativeMethods.cs" />
-    <Compile Include="Modules\System\Registries.cs" />
+    <Compile Include="Modules\Systems\WinRTClipboard.cs" />
+    <Compile Include="Modules\Systems\NativeMethods.cs" />
+    <Compile Include="Modules\Systems\Registries.cs" />
     <Compile Include="Modules\TextConverter.cs" />
     <Compile Include="Modules\Extends\StringBuilderExt.cs" />
     <Compile Include="Program.cs" />
@@ -158,6 +162,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Overlays\CharDisplay.resx">
       <DependentUpon>CharDisplay.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Overlays\CharDisplayConfig.resx">
       <DependentUpon>CharDisplayConfig.cs</DependentUpon>
@@ -170,6 +175,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Modules\UI\Controls\ColorPicker\ColorPicker.resx">
       <DependentUpon>ColorPicker.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -204,6 +210,7 @@
     <None Include="Resources\Transparency.png" />
     <None Include="Resources\Search.png" />
     <None Include="Resources\Text.png" />
+    <None Include="Resources\lock.png" />
     <Content Include="Wordpad.ico" />
   </ItemGroup>
   <ItemGroup />

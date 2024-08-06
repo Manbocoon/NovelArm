@@ -43,6 +43,7 @@ namespace NovelArm
 
         private void ConfigForm_Load(object sender, EventArgs e)
         {
+            
             // Lock
             fileLock = new FileLock(Program.EXE_PATH);
 
@@ -102,6 +103,9 @@ namespace NovelArm
 
             Task.Run(() => 
             {
+                while (!UPDATE_FINISH)
+                    Thread.Sleep(500);
+
                 while (true)
                 {
                     Program.EmptyMyWorkingSet();
@@ -109,7 +113,7 @@ namespace NovelArm
                     Thread.Sleep(10 * 60 * 1000); // 10 Minute
                 }
             });
-            
+
         }
 
         private void ConfigForm_FormClosing(object sender, FormClosingEventArgs e)
@@ -133,14 +137,19 @@ namespace NovelArm
 
             // 일반 탭
             regStartup_Click(regStartup, new EventArgs());
-
+           
             // 글자수 탭
             FileWatcher.DirPath = Directory.Exists(charDraftPath.Text) ? charDraftPath.Text : "C:\\";
             charMainApp_SelectedIndexChanged(charMainApp, new EventArgs());
             charUseDisplay_Click(charUseDisplay, new EventArgs());
             charOverlayFormat_TextChanged(charOverlayFormat, new EventArgs());
             SetTextCounterOptions();
-
+            charDisplay.HideWindow = charHideWindow.Checked;
+            //charDisplay.LockWindow = charLockWindow.Checked;
+            //charDisplay.WritingAppLocOffset = charLockWindow.Tag != null ? charLockWindow.Tag.ToString().ToPoint() : Point.Empty;
+            charDisplay.WritingAppCaption = charAppWindow.Text;
+            charDisplay.WritingAppName = charAppWindow.Tag != null ? charAppWindow.Tag.ToString() : null;
+            
             // 변환 탭
             cbAutoConvert_Click(cbAutoConvert, new EventArgs());
             cbUseKeybind_Click(cbUseKeybind, new EventArgs());
@@ -148,33 +157,34 @@ namespace NovelArm
             TextConverter.keybinds = Keybind.ReadKeysFromData(keybinds);
         }
 
+        private bool UPDATE_FINISH = false;
         private void CheckUpdate()
         {
             Updater.AppInfo appInfo = new Updater.AppInfo();
             using (Updater updater = new Updater())
             {
                 if (!updater.IsNetworkAvailable())
+                {
+                    UPDATE_FINISH = true;
                     return;
+                }
 
                 appInfo = updater.GetInfoFromWeb();
-                if (double.TryParse(appInfo.Version, out double newVersion))
+                if (Updater.CompareVersionStrings(Program.VERSION, appInfo.Version) == -1)
                 {
-                    if (Program.VERSION < newVersion)
+                    int numberForFun = new Random().Next(1, 1000001);
+                    DialogResult userAction = MessageBox.Show($"{numberForFun}번 지구에서 {Program.APP_NAME} {appInfo.Version}버전이 등장했대요!\n훔쳐올 테니까 업데이트 하실래요?\n\n\n[패치 노트]\n{appInfo.PatchNote}", "상태창", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
+                    if (userAction == DialogResult.Yes)
                     {
-                        int numberForFun = new Random().Next(1, 1000001);
-                        DialogResult userAction = MessageBox.Show($"{numberForFun}번 지구에서 {Program.APP_NAME} 최신버전이 등장했대요!\n훔쳐올 테니까 업데이트 하실래요?\n\n\n[패치 노트]\n{appInfo.PatchNote}", "상태창", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
-                        if (userAction == DialogResult.Yes)
+                        string updateResult = updater.UpdateMySelf(ref numberForFun);
+                        if (updateResult.Contains("ERROR"))
                         {
-                            string updateResult = updater.UpdateMySelf(ref numberForFun);
-                            if (updateResult.Contains("ERROR"))
-                            {
-                                MessageBox.Show($"업데이트 과정에서 오류가 발생했어요!\n프로그램 하단의 \"모든 버전 확인\"을 눌러서 최상단 파일을 직접 받으시는 걸 추천드려요!\n\n{updateResult}", "알림", 0, MessageBoxIcon.Exclamation);
-                                return;
-                            }
+                            MessageBox.Show($"업데이트 과정에서 오류가 발생했어요!\n프로그램 하단의 \"모든 버전 확인\"을 눌러서 최상단 파일을 직접 받으시는 걸 추천드려요!\n\n{updateResult}", "알림", 0, MessageBoxIcon.Exclamation);
                         }
                     }
                 }
             }
+            UPDATE_FINISH = true;
         }
         #endregion
 
@@ -319,6 +329,66 @@ namespace NovelArm
         #endregion
 
         #region CheckBoxes
+        private void charHideWindow_Click(object sender, EventArgs e)
+        {
+            if (charHideWindow.Checked && charAppWindow.Tag == null)
+                charAppWindow_Click(charAppWindow, new EventArgs());
+
+            charDisplay.HideWindow = charHideWindow.Checked;
+
+            if (charUseDisplay.Checked && !charDisplay.Visible)
+                charDisplay.Visible = true;
+        }
+
+        private void charLockWindow_Click(object sender, EventArgs e)
+        {
+            /*
+            if (!charUseDisplay.Checked)
+            {
+                charLockWindow.Checked = false;
+                MessageBox.Show("오버레이를 집필 프로그램 창의 특정 위치에 고정시키려면, 먼저 오버레이를 켜시고 원하는 위치에 드래그해서 놓아주세요.", "알림", 0, MessageBoxIcon.Information);
+                return;
+            }
+
+            if (charAppWindow.Tag == null)
+            {
+                charLockWindow.Checked = false;
+                MessageBox.Show("오버레이를 집필 프로그램 창의 특정 위치에 고정시키려면, 먼저 [집필 프로그램 창]을 설정해주세요.", "알림", 0, MessageBoxIcon.Information);
+                return;
+            }
+
+            if (!charLockWindow.Checked)
+            {
+                charDisplay.LockWindow = false;
+                return;
+            }
+
+            MessageBox.Show($"어떤 창에 고정시킬 건지 선택해야 합니다. 이전에 선택하셨던 집필 프로그램을 미리 실행하고, 오버레이를 원하는 위치에 배치해주신 뒤 확인을 눌러주세요.\n\n{charAppWindow.Text}\n{charAppWindow.Tag}", "알림", 0, MessageBoxIcon.Information);
+
+            // 집필 프로그램 창 찾기
+            AltTabSwitcher.ProcessInfo procInfo = default;
+            using (var procSelBox = new ProcessSelectBox())
+            {
+                procInfo = procSelBox.ShowDialog($"고르셨던 창을 다시 선택해주세요: {charAppWindow.Text}");
+            }
+
+            // 선택을 안 했다면 취소
+            if (procInfo.Equals(new AltTabSwitcher.ProcessInfo()))
+            {
+                MessageBox.Show("선택하지 않으셨습니다.", "", 0, MessageBoxIcon.Information);
+                return;
+            }
+
+            Point overlayLoc = charDisplay.Location;
+            NativeMethods.RECT writingAppRect = default;
+            NativeMethods.GetWindowRect(procInfo.MainWindowHandle, ref writingAppRect);
+            charDisplay.WritingAppLocOffset = new Point(overlayLoc.X - writingAppRect.left, overlayLoc.Y - writingAppRect.top);
+            charDisplay.LockWindow = charLockWindow.Checked;
+
+            charLockWindow.Tag = charDisplay.WritingAppLocOffset;
+            */
+        }
+
         private void regStartup_Click(object sender, EventArgs e)
         {
             if (regStartup.Checked)
@@ -400,6 +470,33 @@ namespace NovelArm
         private void charOverlayFormat_TextChanged(object sender, EventArgs e)
         {
             charDisplay.BitmapTextFormat = charOverlayFormat.Text;
+        }
+
+        private void charAppWindow_Click(object sender, EventArgs e)
+        {
+            AltTabSwitcher.ProcessInfo mainApp = default;
+            using (var processSelector = new ProcessSelectBox())
+            {
+                mainApp = processSelector.ShowDialog("사용중인 집필 프로그램을 선택하세요.");
+            }
+
+            // 선택한 프로세스가 없으면
+            if (mainApp.Equals(new AltTabSwitcher.ProcessInfo()))
+            {
+                charAppWindow.Text = null;
+                charAppWindow.Tag = null;
+                return;
+            }
+
+            // 타이틀에 프로세스명이 들어있는 경우 그것을 키워드로 결정
+            if (mainApp.MainWindowText.ToLower().Contains(mainApp.Name.ToLower()))
+                mainApp.MainWindowText = mainApp.Name;
+
+            charAppWindow.Text = mainApp.MainWindowText;
+            charAppWindow.Tag = mainApp.Name;
+
+            charDisplay.WritingAppCaption = mainApp.MainWindowText;
+            charDisplay.WritingAppName = mainApp.Name;
         }
 
         private void charDraftPath_Click(object sender, EventArgs e)
@@ -578,13 +675,9 @@ namespace NovelArm
                     break;
             }
 
-
             ActiveControl = null;
         }
 
-
-
         #endregion
-
     }
 }

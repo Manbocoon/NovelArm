@@ -19,6 +19,8 @@ namespace NovelArm.Modules
 
         internal static IList<string> ReplaceRawData(string keyDataString, bool restoreData = false)
         {
+            keyDataString = keyDataString.Replace("Ctrl", "Control");
+
             List<string> keybinds = new List<string>();
             string normalKey = null;
             string[] delimiter = restoreData ? new string[] { " + " } : new string[] { ", " }; 

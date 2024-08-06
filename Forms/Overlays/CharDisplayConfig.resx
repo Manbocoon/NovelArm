@@ -117,28 +117,4 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="selectDraft.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAABGdBTUEAALGPC/xhBQAAA/JJREFUWEfF
-        V1tIXFcUFawg1UGMBWkFNQ2MD6Q1giEfLaXE2CIIgWpFFFGMD4KKRrSF0R+14qRaqMHRhEiRhFofiAjF
-        9/tDrB/Vj/oABRGUgOCHP4IPdtc6zhw6dibOnWTaBQvOvXuttbfemXPP+HkKEbkHfgf+Av4KvgAfg5/Z
-        Jb4DmmROTU1JS0uL5OfnS3Z2thQWFkpbW5ssLi6iLOl26bsFgsvB9f7+ftU0JiZGAgIChKXAwEBJSEiQ
-        goICGRkZ4RB/gAWXzrcEgsygbWhoSOLi4lTD65icnCxzc3McxAaacM87wHwbfF5ZWenUICQkRNLS0sRi
-        sUhTU5PU1tZKSkqK/o84aLVaHUN8gGvjYPOioiId6O/vrxoeHR0x+HewCbSA7DS5t7cnNTU1TkM0NDSg
-        JDasjYGmzs5OHRQZGSnr6+sMewreUKIrwP2b9M3Pz0tQUJD2jo2N0feDEnkCiG8dHh7qAJPJJPv7+wz5
-        XgmuAXQ/rq6uan9oaKicnp7SH6AE1wHC1urqah0wPDxMs1UVPQT0ttbWVp3R0dHBjEeq+CZAZN7a2pKw
-        sDBlTExMpPHPy6rngOd98HV4eLixHIjK29vb9eRc854qGgR8P1VVVemsg4MDZn2oiu4AQWdpaak2LS0t
-        0XRXFQ0CvoyBgQGdNTExwaz7qugOEPyWlZWlTTs7OzR9rIoGAd/nCwsLOquvr49Z36qiO0DwKicnR5s2
-        NzdpilFFg4AvZXJyUmcNDg4y6xtVdAcIrNzZuCRHR0dp+loVDQK+kq6uLp21vLzMrDuq6A4QOD23iooK
-        mn5WRYOAbyQ9PV3lcC85OTlhVuBl1Q0gMB0fH0tSUpIyct8/Pz+nMfFS4Rmgf8BPPZdkZmYmM/pV8TpA
-        +LC3t1ebi4uLaX6mih4A2ghwPDU1VWfY//1fKoEngPiv+Ph4HcBnCfDN9pESuAHqn4JdfFPykiwrK1Ne
-        JfAUMJRtb2/rELKuro5BGyA/GHHUEVi/B34CWvicS0pKnHzj4+MoyRNqDQEmGzcPLh2MjY1V+7r9zbgL
-        bp2dncna2po0NzdLRESEk54MDg6W2dlZ6r17La+srLg8DUVFRYnZbHbZ1BVnZma8HqL84uJCHUaio6Nd
-        hjvIQfk1ZjNX9bcZ4gZo4VeSB4zGxkbJzc2VjIwMycvLU8cv+zmQz4YHWNv09PS7HYKA0R/8CuQn8iU4
-        APaAteAXdpkCrt0OwaM961j7Fm8agu8J1sEoXPsObMK/mMur7O7ult1dfpn+pyG4t2xscGuRWFz7FleH
-        +MfvBt83d4ANe3p6pL6+3tHc+19O3gANQ/nDhgdfwGy//d+CQ/y7uZ/f3/0d1nCbK901AAAAAElFTkSu
-        QmCC
-</value>
-  </data>
 </root>

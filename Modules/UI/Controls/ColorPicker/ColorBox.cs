@@ -9,6 +9,8 @@
 /*****                                                        *****/
 /******************************************************************/
 
+using System;
+using System.ComponentModel;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Windows.Forms;
@@ -44,7 +46,7 @@ namespace NovelArm.Modules.UI
 		/// <summary> 
 		/// Required designer variable.
 		/// </summary>
-		private System.ComponentModel.Container components = null;
+		private Container components = null;
 
 		#endregion
 
@@ -97,23 +99,23 @@ namespace NovelArm.Modules.UI
 			this.Size = new System.Drawing.Size(260, 260);
 			this.Resize += new System.EventHandler(this.ctrl2DColorBox_Resize);
 			this.Load += new System.EventHandler(this.ctrl2DColorBox_Load);
-			this.MouseUp += new System.Windows.Forms.MouseEventHandler(this.ctrl2DColorBox_MouseUp);
-			this.Paint += new System.Windows.Forms.PaintEventHandler(this.ctrl2DColorBox_Paint);
-			this.MouseMove += new System.Windows.Forms.MouseEventHandler(this.ctrl2DColorBox_MouseMove);
-			this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.ctrl2DColorBox_MouseDown);
+			this.MouseUp += new MouseEventHandler(this.ctrl2DColorBox_MouseUp);
+			this.Paint += new PaintEventHandler(this.ctrl2DColorBox_Paint);
+			this.MouseMove += new MouseEventHandler(this.ctrl2DColorBox_MouseMove);
+			this.MouseDown += new MouseEventHandler(this.ctrl2DColorBox_MouseDown);
 
 		}
 		#endregion
 
 		#region Control Events
 
-		private void ctrl2DColorBox_Load(object sender, System.EventArgs e)
+		private void ctrl2DColorBox_Load(object sender, EventArgs e)
 		{
 			Redraw_Control();
 		}
 
 
-		private void ctrl2DColorBox_MouseDown(object sender, System.Windows.Forms.MouseEventArgs e)
+		private void ctrl2DColorBox_MouseDown(object sender, MouseEventArgs e)
 		{
 			if ( e.Button != MouseButtons.Left )	//	Only respond to left mouse button events
 				return;
@@ -137,7 +139,7 @@ namespace NovelArm.Modules.UI
 		}
 
 
-		private void ctrl2DColorBox_MouseMove(object sender, System.Windows.Forms.MouseEventArgs e)
+		private void ctrl2DColorBox_MouseMove(object sender, MouseEventArgs e)
 		{
 			if ( !m_bDragging )		//	Only respond when the mouse is dragging the marker.
 				return;
@@ -159,7 +161,7 @@ namespace NovelArm.Modules.UI
 		}
 
 
-		private void ctrl2DColorBox_MouseUp(object sender, System.Windows.Forms.MouseEventArgs e)
+		private void ctrl2DColorBox_MouseUp(object sender, MouseEventArgs e)
 		{
 			if ( e.Button != MouseButtons.Left )	//	Only respond to left mouse button events
 				return;
@@ -186,13 +188,13 @@ namespace NovelArm.Modules.UI
 		}
 
 
-		private void ctrl2DColorBox_Resize(object sender, System.EventArgs e)
+		private void ctrl2DColorBox_Resize(object sender, EventArgs e)
 		{
 			Redraw_Control();
 		}
 
 
-		private void ctrl2DColorBox_Paint(object sender, System.Windows.Forms.PaintEventArgs e)
+		private void ctrl2DColorBox_Paint(object sender, PaintEventArgs e)
 		{
 			Redraw_Control();
 		}
